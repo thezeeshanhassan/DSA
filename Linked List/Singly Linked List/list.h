@@ -12,9 +12,6 @@ public:
     void deleteNode(int);
     void display() const;
 
-    // Additional Functions to List ADT
-    void reverse();
-
 private:
     ListNode *head;
 };
