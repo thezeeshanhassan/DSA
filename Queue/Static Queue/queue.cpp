@@ -79,3 +79,11 @@ void queueADT::display() const
         cout << queueArray[traverse] << " ";
     }
 }
+
+// clear sets the front and rear indices, and sets numItems to 0.
+void queueADT::clear()
+{
+    front = -1;
+    rare = -1;
+    count = 0;
+}

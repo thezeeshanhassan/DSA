@@ -20,6 +20,7 @@ int main()
     cout << queue.deQueue() << ' ';
     cout << queue.deQueue() << ' ';
     cout << queue.deQueue() << ' ';
+    queue.clear();
 
     return 0;
 }

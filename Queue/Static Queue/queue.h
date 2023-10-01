@@ -12,6 +12,7 @@ public:
     int size() const;
     void display() const;
     ~queueADT();
+    void clear();
 
 private:
     int *queueArray;
