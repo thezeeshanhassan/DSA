@@ -32,6 +32,14 @@ int main()
     cout << endl;
     list.deleteDuplicateInSortedList();
     list.display();
-
+    cout << endl;
+    if (list.isSorted())
+    {
+        cout << "List is Sorted";
+    }
+    else
+    {
+        cout << "List is Not Sorted";
+    }
     return 0;
 }

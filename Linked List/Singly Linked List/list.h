@@ -15,6 +15,7 @@ public:
     // Additional Functions in Linked List
     void reverse();
     void deleteDuplicateInSortedList();
+    bool isSorted();
 
 private:
     ListNode *head;

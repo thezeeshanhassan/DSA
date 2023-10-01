@@ -142,3 +142,22 @@ void ListADT::deleteDuplicateInSortedList()
         }
     }
 }
+
+bool ListADT::isSorted()
+{
+    ListNode *prev = head;
+    ListNode *ptr = head->next;
+    while (ptr->next)
+    {
+        if (ptr->data > prev->data)
+        {
+            prev = ptr;
+            ptr = ptr->next;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    return true;
+}
