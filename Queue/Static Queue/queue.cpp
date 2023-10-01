@@ -7,6 +7,10 @@ queueADT::queueADT(int &cap) : rare(-1), front(-1), count(0), capacity(cap)
 {
     queueArray = new int[cap];
 }
+queueADT::~queueADT()
+{
+    delete[] queueArray;
+}
 
 void queueADT::enQueue(int num)
 {

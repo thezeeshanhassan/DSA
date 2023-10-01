@@ -11,6 +11,7 @@ public:
     bool isEmpty() const;
     int size() const;
     void display() const;
+    ~queueADT();
 
 private:
     int *queueArray;
