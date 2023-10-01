@@ -18,6 +18,10 @@ int main()
     list.deleteNode(3);
     cout << endl;
     list.display();
+    cout << endl;
+    cout << "Reversed Linked List is : " << endl;
+    list.reverse();
+    list.display();
 
     return 0;
 }

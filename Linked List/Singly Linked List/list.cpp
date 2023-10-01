@@ -100,3 +100,20 @@ void ListADT::display() const
         ptr = ptr->next;
     }
 }
+
+void ListADT::reverse()
+{
+    ListNode *ptr = head;
+    ListNode *prev = nullptr;
+    ListNode *current = nullptr;
+
+    while (ptr)
+    {
+        current = prev;
+        prev = ptr;
+        ptr = ptr->next;
+
+        prev->next = current;
+    }
+    head = prev;
+}

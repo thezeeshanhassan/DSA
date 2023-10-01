@@ -12,6 +12,9 @@ public:
     void deleteNode(int);
     void display() const;
 
+    // Additional Functions in Linked List
+    void reverse();
+
 private:
     ListNode *head;
 };
