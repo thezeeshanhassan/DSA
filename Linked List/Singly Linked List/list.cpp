@@ -120,7 +120,10 @@ void ListADT::reverse()
 
 void ListADT::deleteDuplicateInSortedList()
 {
-
+    if (!head)
+    {
+        return;
+    }
     ListNode *prev = head;
     ListNode *ptr = head->next;
 
