@@ -19,8 +19,18 @@ int main()
     cout << endl;
     list.display();
     cout << endl;
-    cout << "Reversed Linked List is : " << endl;
     list.reverse();
+    list.display();
+    cout << endl;
+    list.reverse();
+    list.display();
+    cout << endl;
+    list.insertNode(1);
+    list.insertNode(3);
+    list.insertNode(5);
+    list.display();
+    cout << endl;
+    list.deleteDuplicateInSortedList();
     list.display();
 
     return 0;

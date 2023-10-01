@@ -117,3 +117,25 @@ void ListADT::reverse()
     }
     head = prev;
 }
+
+void ListADT::deleteDuplicateInSortedList()
+{
+
+    ListNode *prev = head;
+    ListNode *ptr = head->next;
+
+    while (ptr)
+    {
+        if (prev->data == ptr->data)
+        {
+            prev->next = ptr->next;
+            delete ptr;
+            ptr = prev->next;
+        }
+        else
+        {
+            prev = ptr;
+            ptr = ptr->next;
+        }
+    }
+}
