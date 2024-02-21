@@ -1,17 +1,16 @@
-#include<iostream>
-#include<string>
-#include<cmath>
+#include <iostream>
+#include <string>
+#include <cmath>
 using namespace std;
 
 // Prototypes of Each Function
 
 string decToBin(int);
-void reverseString(string& input);
+void reverseString(string &input);
 string textToBin(string);
-string encryption(string ,string);
+string encryption(string, string);
 // int binToDec(string);
 int binToDec(string);
-
 
 int main()
 {
@@ -29,10 +28,10 @@ int main()
     // cout<<encryption(plainText,key);
 
     string num{""};
-    cout<<"Enter a binary String"<<endl;
+    cout << "Enter a binary String" << endl;
     cin >> num;
 
-    cout<<binToDec(num);
+    cout << binToDec(num);
 
     return 0;
 }
@@ -42,25 +41,26 @@ int main()
 string decToBin(int num)
 {
     string binString{""};
-    while(num > 0)
+    while (num > 0)
     {
         binString += to_string(num % 2);
         num /= 2;
     }
-    while(binString.length() < 8)
+    while (binString.length() < 8)
     {
         binString += '0';
     }
     reverseString(binString);
     return binString;
-} // decToBin Function End
+}
 
-void reverseString(string& input) 
+void reverseString(string &input)
 {
     int left = 0;
     int right = input.length() - 1;
 
-    while (left < right) {
+    while (left < right)
+    {
         // Swap characters at the left and right positions
         swap(input[left], input[right]);
 
@@ -74,7 +74,7 @@ void reverseString(string& input)
 string textToBin(string plainText)
 {
     string binString{""};
-    for(int i{}; i < plainText.length(); i += 1)
+    for (int i{}; i < plainText.length(); i += 1)
     {
         int asci = plainText[i];
         binString += decToBin(asci);
@@ -84,18 +84,18 @@ string textToBin(string plainText)
 
 // Encryption Method Which Encrypts the Text of any Type of String
 
-string encryption(string strPT,string strKey)
+string encryption(string strPT, string strKey)
 {
     string plainText = textToBin(strPT);
-    string key =  textToBin(strKey);
+    string key = textToBin(strKey);
 
     int sizePT = plainText.length();
     int sizeK = key.length();
 
     string cipher{""};
     int j{};
-    for(int i{}; i < sizePT; i += 1)
-    { 
+    for (int i{}; i < sizePT; i += 1)
+    {
         cipher += to_string(int(plainText[i]) ^ int(key[j]));
         j += 1;
         j %= sizeK;
@@ -112,7 +112,7 @@ int binToDec(string binString)
     int size = binString.length();
     int base{1};
 
-    for(int i{}; i < binString.length(); i += 1)
+    for (int i{}; i < binString.length(); i += 1)
     {
         int binNum = int(binString[i]);
         decNum += binNum * base;
@@ -121,3 +121,4 @@ int binToDec(string binString)
     }
     return decNum;
 }
+
