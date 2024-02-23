@@ -6,37 +6,47 @@ string asciiToBin(int num);
 void reverseString(string &input);
 string swapBinString(string &str);
 string initialPermutation(string &str);
-// string encryption(string strText, char key);
-string encryption(char strText, char key);
+char encryption(char strText, char key);
 char binaryToChar(const string &binaryStr);
-string decryption(char cText, char key);
+char decryption(char cText, char key);
 string inversePermutation(string &str);
+string xorFunction(string text, string key);
 
 int main()
 {
-    char plainText{};
-    cout << "Enter One Character to Encrypt" << endl;
-    cin >> plainText;
+    string purpose{};
+    cout << "Enter E For Encryption and D For Decryption" << endl;
+    cin >> purpose;
 
-    char key{};
-    cout << "Enter One Character for Key" << endl;
-    cin >> key;
+    if (purpose == "E")
+    {
+        char plainText{};
+        cout << "Enter One Character to Encrypt" << endl;
+        cin >> plainText;
 
-    string cipherText = encryption(plainText, key);
-    // cout << "Key Is " << textToBin(key) << endl;
-    cout << "Cipher Text Is " << cipherText << endl;
+        char key{};
+        cout << "Enter One Character for Key to Encrypt" << endl;
+        cin >> key;
 
-    char cipherChar = binaryToChar(cipherText);
-    cout << cipherChar << endl;
+        char cipherText = encryption(plainText, key);
+        cout << "Cipher Text IS  " << cipherText << endl;
+    }
 
-    string xorText = decryption(cipherChar, key);
-    // cout << xorText << endl;
+    if (purpose == "D")
+    {
+        char cipherText{};
+        cout << "Enter Cipher Character" << endl;
+        cin >> cipherText;
 
-    string inpermutation = inversePermutation(xorText);
-    // cout << inpermutation << "\n";
+        char key{};
+        cout << "Enter One Character for Key to Decrypt" << endl;
+        cin >> key;
 
-    string swapedString = swapBinString(inpermutation);
-    cout << swapedString << endl;
+        char plainText = decryption(cipherText, key);
+        cout << "Plain Text IS  " << plainText << endl;
+    }
+
+    return 0;
 }
 
 //// Converts Text To Binary ////
@@ -134,7 +144,7 @@ string initialPermutation(string &str)
 
 // Encryption Method to Encrypt the Cipher
 
-string encryption(char strText, char key)
+char encryption(char strText, char key)
 {
     string binText = textToBin(strText);
     string swapedString = swapBinString(binText);
@@ -143,15 +153,25 @@ string encryption(char strText, char key)
     string cipherText{""};
     // Binary Key
     string strKey = textToBin(key);
+    cipherText = xorFunction(permutatedString, strKey);
+    cout << "Cipher Text Binary Is " << cipherText << endl;
+    char cipher = binaryToChar(cipherText);
+    return cipher;
+}
 
+string xorFunction(string text, string key)
+{
+    string xorString{""};
     for (int i{}; i < 8; i += 1)
     {
-        int textNum = permutatedString[i] - '0';
-        int keyNum = strKey[i] - '0';
-        cipherText += ((textNum ^ keyNum) + '0');
+        int textNum = text[i] - '0';
+        int keyNum = key[i] - '0';
+        xorString += ((textNum ^ keyNum) + '0');
     }
-    return cipherText;
+    return xorString;
 }
+
+// Convert binary string to decimal integer
 
 char binaryToChar(const string &binaryStr)
 {
@@ -162,28 +182,26 @@ char binaryToChar(const string &binaryStr)
     {
         decimalValue = (decimalValue << 1) + (binaryStr[i] - '0');
     }
-    return decimalValue;
-    // // Convert decimal integer to char
-    char charValue = char(97);
+    char charValue = char(decimalValue);
 
     return charValue;
 }
 
-string decryption(char cText, char key)
+char decryption(char cText, char key)
 {
     string cBin = textToBin(cText);
-    string strKey = textToBin(key);
-    string XorText{""};
 
-    for (int i{}; i < 8; i += 1)
-    {
-        int textNum = cBin[i] - '0';
-        int keyNum = strKey[i] - '0';
-        XorText += ((textNum ^ keyNum) + '0');
-    }
-    cout << cBin << endl;
-    cout << strKey << endl;
-    return XorText;
+    string strKey = textToBin(key);
+
+    string XorText{""};
+    XorText = xorFunction(cBin, strKey);
+    string inversePermutated = inversePermutation(XorText);
+    string swapedString = swapBinString(inversePermutated);
+    reverseString(swapedString);
+    string plainTextBin = swapedString;
+    cout << "Plain Text Bin Is " << plainTextBin << endl;
+    char plainText = binaryToChar(plainTextBin);
+    return plainText;
 }
 
 string inversePermutation(string &str)
@@ -198,6 +216,7 @@ string inversePermutation(string &str)
     ipString.push_back(str[1]);
     ipString.push_back(str[4]);
     ipString.push_back(str[0]);
+    reverseString(ipString);
 
     return ipString;
 }
