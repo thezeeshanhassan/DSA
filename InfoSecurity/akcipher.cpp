@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 string textToBin(char text);
@@ -14,35 +15,57 @@ string xorFunction(string text, string key);
 
 int main()
 {
+
     string purpose{};
     cout << "Enter E For Encryption and D For Decryption" << endl;
     cin >> purpose;
 
     if (purpose == "E")
     {
-        char plainText{};
-        cout << "Enter One Character to Encrypt" << endl;
-        cin >> plainText;
+        string cipherText{""};
+        string inPutFile{""};
+        ofstream outPutFile("ciphertext.txt");
+
+        cout << "Enter Filename to Encrypt" << endl;
+        cin >> inPutFile;
 
         char key{};
         cout << "Enter One Character for Key to Encrypt" << endl;
         cin >> key;
 
-        char cipherText = encryption(plainText, key);
-        cout << "Cipher Text IS  " << cipherText << endl;
+        ifstream textFile(inPutFile + ".txt");
+        char data{' '};
+        while (textFile >> data)
+        {
+            cipherText += encryption(data, key);
+        }
+        outPutFile << cipherText;
+
+        cout << "Cipher Text Is " << cipherText << endl;
     }
 
     if (purpose == "D")
     {
-        char cipherText{};
-        cout << "Enter Cipher Character" << endl;
-        cin >> cipherText;
+        string plainText{""};
+        string cipherText{""};
+        string inPutFile{""};
+
+        ofstream outPutFile("dplaintext.txt");
+
+        cout << "Enter Filename to Decrypt" << endl;
+        cin >> inPutFile;
 
         char key{};
         cout << "Enter One Character for Key to Decrypt" << endl;
         cin >> key;
 
-        char plainText = decryption(cipherText, key);
+        ifstream cipherFile(inPutFile + ".txt");
+        char data{' '};
+        while (cipherFile >> data)
+        {
+            plainText += decryption(data, key);
+        }
+        outPutFile << plainText;
         cout << "Plain Text IS  " << plainText << endl;
     }
 
@@ -58,6 +81,8 @@ string textToBin(char text)
     binString = asciiToBin(ascii);
     return binString;
 }
+
+//// Helper Function - For Text to Binary
 
 string asciiToBin(int num)
 {
@@ -154,7 +179,7 @@ char encryption(char strText, char key)
     // Binary Key
     string strKey = textToBin(key);
     cipherText = xorFunction(permutatedString, strKey);
-    cout << "Cipher Text Binary Is " << cipherText << endl;
+    cout << cipherText;
     char cipher = binaryToChar(cipherText);
     return cipher;
 }
@@ -187,6 +212,8 @@ char binaryToChar(const string &binaryStr)
     return charValue;
 }
 
+//// Function for Decryption ////
+
 char decryption(char cText, char key)
 {
     string cBin = textToBin(cText);
@@ -203,6 +230,8 @@ char decryption(char cText, char key)
     char plainText = binaryToChar(plainTextBin);
     return plainText;
 }
+
+//// Function of Inverse Permutation ////
 
 string inversePermutation(string &str)
 {
