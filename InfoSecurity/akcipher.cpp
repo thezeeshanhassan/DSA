@@ -13,59 +13,39 @@ char decryption(char cText, char key);
 string inversePermutation(string &str);
 string xorFunction(string text, string key);
 
-int main()
+int main(int argc, char *argv[])
 {
 
-    string purpose{};
-    cout << "Enter E For Encryption and D For Decryption" << endl;
-    cin >> purpose;
+    string inPFile = argv[1];
+    string outPFile = argv[2];
+    char key = argv[3][0];
+    char purpose = argv[4][0];
 
-    if (purpose == "E")
+    ofstream outputFile(outPFile + ".txt");
+    ifstream inputFile(inPFile + ".txt");
+
+    if (purpose == 'e')
     {
         string cipherText{""};
-        string inPutFile{""};
-        ofstream outPutFile("ciphertext.txt");
-
-        cout << "Enter Filename to Encrypt" << endl;
-        cin >> inPutFile;
-
-        char key{};
-        cout << "Enter One Character for Key to Encrypt" << endl;
-        cin >> key;
-
-        ifstream textFile(inPutFile + ".txt");
         char data{' '};
-        while (textFile >> data)
+        while (inputFile >> data)
         {
             cipherText += encryption(data, key);
         }
-        outPutFile << cipherText;
+        outputFile << cipherText;
 
         cout << "Cipher Text Is " << cipherText << endl;
     }
 
-    if (purpose == "D")
+    if (purpose == 'd')
     {
         string plainText{""};
-        string cipherText{""};
-        string inPutFile{""};
-
-        ofstream outPutFile("dplaintext.txt");
-
-        cout << "Enter Filename to Decrypt" << endl;
-        cin >> inPutFile;
-
-        char key{};
-        cout << "Enter One Character for Key to Decrypt" << endl;
-        cin >> key;
-
-        ifstream cipherFile(inPutFile + ".txt");
         char data{' '};
-        while (cipherFile >> data)
+        while (inputFile >> data)
         {
             plainText += decryption(data, key);
         }
-        outPutFile << plainText;
+        outputFile << plainText;
         cout << "Plain Text IS  " << plainText << endl;
     }
 
@@ -82,7 +62,7 @@ string textToBin(char text)
     return binString;
 }
 
-//// Helper Function - For Text to Binary
+//// Helper Function - For Text to Binary ////
 
 string asciiToBin(int num)
 {
@@ -140,7 +120,7 @@ string swapBinString(string &str)
     return swapString;
 }
 
-// Permutate the String According to Given Algorithm
+//// Permutate the String According to Given Algorithm ////
 
 string initialPermutation(string &str)
 {
@@ -167,7 +147,7 @@ string initialPermutation(string &str)
     return ipString;
 }
 
-// Encryption Method to Encrypt the Cipher
+//// Encryption Method to Encrypt the Cipher ////
 
 char encryption(char strText, char key)
 {
@@ -179,7 +159,6 @@ char encryption(char strText, char key)
     // Binary Key
     string strKey = textToBin(key);
     cipherText = xorFunction(permutatedString, strKey);
-    cout << cipherText;
     char cipher = binaryToChar(cipherText);
     return cipher;
 }
@@ -196,7 +175,7 @@ string xorFunction(string text, string key)
     return xorString;
 }
 
-// Convert binary string to decimal integer
+//// Convert binary string to decimal integer ////
 
 char binaryToChar(const string &binaryStr)
 {
@@ -217,7 +196,6 @@ char binaryToChar(const string &binaryStr)
 char decryption(char cText, char key)
 {
     string cBin = textToBin(cText);
-
     string strKey = textToBin(key);
 
     string XorText{""};
@@ -226,7 +204,6 @@ char decryption(char cText, char key)
     string swapedString = swapBinString(inversePermutated);
     reverseString(swapedString);
     string plainTextBin = swapedString;
-    cout << "Plain Text Bin Is " << plainTextBin << endl;
     char plainText = binaryToChar(plainTextBin);
     return plainText;
 }
