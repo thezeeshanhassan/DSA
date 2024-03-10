@@ -6,8 +6,8 @@ void countingSort(int *arr, int size);
 
 int main()
 {
-    int arr[11]{5, 5, 5, 5, 4, 4, 4, 3, 2, 2, 10};
-    countingSort(arr, 11);
+    int arr[10]{5, 5, 5, 6, 4, 4, 3, 18, 2, 10};
+    countingSort(arr, 10);
 }
 
 void countingSort(int *arr, int size)
@@ -28,19 +28,23 @@ void countingSort(int *arr, int size)
         dummyArr[i] = 0;
     }
 
-    display(dummyArr, arr[max] + 1);
-
     for (int i{}; i < size; i += 1)
     {
         dummyArr[arr[i]] += 1;
     }
-    display(dummyArr, arr[max] + 1);
 
     for (int i{1}; i < arr[max] + 1; i += 1)
     {
-        dummyArr[i - 1] += dummyArr[i];
+        dummyArr[i] += dummyArr[i - 1];
     }
-    display(dummyArr, arr[max] + 1);
+
+    int *outputArr = new int[size];
+    for(int i{size - 1}; i >= 0; i -= 1)
+    {
+        outputArr[dummyArr[arr[i]] - 1] = arr[i];
+        dummyArr[arr[i]] -= 1;
+    }
+    display(outputArr,size);
 }
 
 void display(int *arr, int size)
