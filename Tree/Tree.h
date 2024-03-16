@@ -18,6 +18,8 @@ public:
     int maxDepthofBinaryTree(TreeNode *);
     void maxDepth();
     int minepthofBinaryTree(TreeNode *&);
+    bool pathSumofBinaryTree(TreeNode *, int sum, int targetSum);
+    void pathSum();
     void minDepth();
 };
 #endif
