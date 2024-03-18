@@ -2,15 +2,15 @@
 #include <iostream>
 using namespace std;
 
-void findSecondMax(int *, int);
+void sortThreeNum(int *, int);
 void display(int *, int);
 int partition(int *, int, int);
 
 int main()
 {
-    int arr[10]{9, 8, 5, 9, 5, 9, 9, 8, 8, 5};
-    findSecondMax(arr, 10);
-    display(arr, 10);
+    int arr[10]{9};
+    sortThreeNum(arr, 1);
+    display(arr, 1);
 }
 
 int partition(int *arr, int low, int high)
@@ -29,8 +29,8 @@ int partition(int *arr, int low, int high)
     return i + 1;
 }
 
-void findSecondMax(int *arr, int size)
-{
+void sortThreeNum(int *arr, int size)
+{ 
     int maxIdx{};
     int secondMax{-1};
     int minIdx{};
@@ -47,11 +47,9 @@ void findSecondMax(int *arr, int size)
             if (secondMax == -1 || arr[i] > arr[secondMax])
                 secondMax = i;
         }
-        // else if(arr[i] > arr[secondMax])
-        // {
-        //     secondMax = i;
-        // }
     }
+
+    if(secondMax == -1) return;
 
     swap(arr[secondMax], arr[size - 1]);
     int p = partition(arr, 0, size - 1);
